@@ -3,11 +3,22 @@
 <head>
   <meta charset="utf-8" />
   <title>Js GeoJSON to SVG</title>
-  <style>svg{width:26px;height:26px;border:0px solid #ddd}</style>
+  <!-- <style>svg{width:26px;height:26px;border:0px solid #ddd}</style> -->
+  <!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.4.1/dist/css/bootstrap.min.css" integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
+
 </head>
 <body>
+<div class="container">
+  <div class="row">
+    <div class="col-md-1">
+      <svg class="w-50 h-auto js-geo-svg" data-js-polygon='{"type":"Polygon","coordinates":[[[-97.3123945,35.8955299],[-97.312372,35.8947022],[-97.3122367,35.8938015],[-97.3113953,35.8938623],[-97.3114179,35.8943066],[-97.3117184,35.8948969],[-97.311478,35.8953473],[-97.3123945,35.8955299]]]}' id="map" viewBox="0 0 800 600"></svg>
+    </div>
+  </div>
+</div>
 
-  <svg class="js-geo-svg" data-polygon='{"type":"Polygon","coordinates":[[[-97.3123945,35.8955299],[-97.312372,35.8947022],[-97.3122367,35.8938015],[-97.3113953,35.8938623],[-97.3114179,35.8943066],[-97.3117184,35.8948969],[-97.311478,35.8953473],[-97.3123945,35.8955299]]]}' id="map" viewBox="0 0 800 600"></svg>
+  <!-- Latest compiled and minified JavaScript -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@3.4.1/dist/js/bootstrap.min.js" integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd" crossorigin="anonymous"></script>
 
   <script type="module">
     import  './js-geo-svg.js'

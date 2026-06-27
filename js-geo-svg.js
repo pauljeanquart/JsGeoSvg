@@ -4,7 +4,7 @@ import { geoJSONToSVGPath } from './geojson-to-svg.js'
 function initializeJsGeoSvg() {
     const svgElements = document.querySelectorAll('.js-geo-svg');
     svgElements.forEach(svgElement => {
-        const polygon = JSON.parse(svgElement.getAttribute('data-polygon'));
+        const polygon = JSON.parse(svgElement.dataset.jsPolygon);
         // Process each GeoJSON polygon and render it as an SVG path
 
         const [minX, minY, maxX, maxY] = polygon.coordinates[0].reduce(
