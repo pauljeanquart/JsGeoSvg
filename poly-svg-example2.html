@@ -1,0 +1,97 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>Oklahoma GeoJSON → SVG Path Example</title>
+  <style>svg{width:26px;height:26px;border:0px solid #ddd}</style>
+</head>
+<body>
+
+  <svg id="map" viewBox="0 0 800 600"></svg>
+
+  <script type="module">
+    import {geoJSONToSVGPath} from './geojson-to-svg.js'
+
+
+
+
+    // boundary in GeoJSON lon/lat coordinates
+    const geojson = {
+        "coordinates": [
+          [
+            [
+              -97.3123945,
+              35.8955299
+            ],
+            [
+              -97.312372,
+              35.8947022
+            ],
+            [
+              -97.3122367,
+              35.8938015
+            ],
+            [
+              -97.3113953,
+              35.8938623
+            ],
+            [
+              -97.3114179,
+              35.8943066
+            ],
+            [
+              -97.3117184,
+              35.8948969
+            ],
+            [
+              -97.311478,
+              35.8953473
+            ],
+            [
+              -97.3123945,
+              35.8955299
+            ]
+          ]
+        ]
+,
+
+  "type": "Polygon"
+ }
+
+    const [minX, minY, maxX, maxY] = geojson.coordinates[0].reduce(
+      ([minX, minY, maxX, maxY], [lon, lat]) => [
+        Math.min(minX, lon),
+        Math.min(minY, lat),
+        Math.max(maxX, lon),
+        Math.max(maxY, lat)
+      ],
+      [Infinity, Infinity, -Infinity, -Infinity]
+    )
+
+    const width = 800
+    const height = 600
+    const padding = 20
+    const scale = Math.min(
+      (width - padding * 2) / (maxX - minX),
+      (height - padding * 2) / (maxY - minY)
+    )
+
+    const projection = ([lon, lat]) => {
+      const x = (lon - minX) * scale + padding
+      const y = height - padding - (lat - minY) * scale
+      return [x, y]
+    }
+
+    const path = geoJSONToSVGPath(geojson, { projection })
+
+    const svg = document.getElementById('map')
+    const p = document.createElementNS('http://www.w3.org/2000/svg','path')
+    p.setAttribute('d', path)
+    p.setAttribute('fill', '#4da6ff')
+    p.setAttribute('fill-rule', 'evenodd')
+    p.setAttribute('stroke', '#003366')
+    p.setAttribute('stroke-width', '0.5')
+    svg.appendChild(p)
+  </script>
+</body>
+</html>
