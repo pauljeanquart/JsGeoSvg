@@ -7,11 +7,13 @@
  * const path = geoJSONToSVGPath(geojson, { projection: ([lon,lat]) => [lon, -lat] })
  */
 
+// Use the identity projection when no custom mapping is provided.
 function defaultProjection(coord) {
   // Identity projection: assumes coordinates are already in SVG space [x, y]
   return [coord[0], coord[1]]
 }
 
+// Normalize GeoJSON geometry into an array of polygon rings.
 function ringsFromGeoJSON(geojson) {
   const t = geojson && geojson.type
   if (!geojson || !t) throw new Error('Invalid GeoJSON')
@@ -22,6 +24,7 @@ function ringsFromGeoJSON(geojson) {
   throw new Error('Only Polygon and MultiPolygon are supported')
 }
 
+// Compute the bounding box for a Polygon or MultiPolygon by scanning all rings.
 export function getGeoJSONBounds(geojson) {
   const ringsList = ringsFromGeoJSON(geojson)
   let minX = Infinity
@@ -45,6 +48,7 @@ export function getGeoJSONBounds(geojson) {
   return [minX, minY, maxX, maxY]
 }
 
+// Convert GeoJSON geometry into a single SVG path string.
 export function geoJSONToSVGPath(geojson, opts = {}) {
   const projection = opts.projection || defaultProjection
   const ringsList = ringsFromGeoJSON(geojson)
