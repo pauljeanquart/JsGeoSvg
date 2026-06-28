@@ -10,7 +10,7 @@
   <svg id="map" viewBox="0 0 800 600"></svg>
 
   <script type="module">
-    import {geoJSONToSVGPath} from './geojson-to-svg.js'
+    import {geoJSONToSVGPath, getGeoJSONBounds} from './geojson-to-svg.js'
 
 
 
@@ -58,15 +58,7 @@
   "type": "Polygon"
  }
 
-    const [minX, minY, maxX, maxY] = geojson.coordinates[0].reduce(
-      ([minX, minY, maxX, maxY], [lon, lat]) => [
-        Math.min(minX, lon),
-        Math.min(minY, lat),
-        Math.max(maxX, lon),
-        Math.max(maxY, lat)
-      ],
-      [Infinity, Infinity, -Infinity, -Infinity]
-    )
+    const [minX, minY, maxX, maxY] = getGeoJSONBounds(geojson)
 
     const width = 800
     const height = 600

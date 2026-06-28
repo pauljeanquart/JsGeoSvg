@@ -22,6 +22,29 @@ function ringsFromGeoJSON(geojson) {
   throw new Error('Only Polygon and MultiPolygon are supported')
 }
 
+export function getGeoJSONBounds(geojson) {
+  const ringsList = ringsFromGeoJSON(geojson)
+  let minX = Infinity
+  let minY = Infinity
+  let maxX = -Infinity
+  let maxY = -Infinity
+
+  for (const polygon of ringsList) {
+    for (const ring of polygon) {
+      if (!Array.isArray(ring) || ring.length === 0) continue
+
+      for (const [x, y] of ring) {
+        minX = Math.min(minX, x)
+        minY = Math.min(minY, y)
+        maxX = Math.max(maxX, x)
+        maxY = Math.max(maxY, y)
+      }
+    }
+  }
+
+  return [minX, minY, maxX, maxY]
+}
+
 export function geoJSONToSVGPath(geojson, opts = {}) {
   const projection = opts.projection || defaultProjection
   const ringsList = ringsFromGeoJSON(geojson)

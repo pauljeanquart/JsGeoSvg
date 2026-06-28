@@ -1,4 +1,4 @@
-import { geoJSONToSVGPath } from './geojson-to-svg.js'
+import { geoJSONToSVGPath, getGeoJSONBounds } from './geojson-to-svg.js'
 
 // plugin to take GeoJson polygon as data-polygon render svg version
 function initializeJsGeoSvg() {
@@ -7,15 +7,7 @@ function initializeJsGeoSvg() {
         const polygon = JSON.parse(svgElement.dataset.jsPolygon);
         // Process each GeoJSON polygon and render it as an SVG path
 
-        const [minX, minY, maxX, maxY] = polygon.coordinates[0].reduce(
-            ([minX, minY, maxX, maxY], [lon, lat]) => [
-                Math.min(minX, lon),
-                Math.min(minY, lat),
-                Math.max(maxX, lon),
-                Math.max(maxY, lat)
-            ],
-            [Infinity, Infinity, -Infinity, -Infinity]
-        )
+        const [minX, minY, maxX, maxY] = getGeoJSONBounds(polygon)
 
         const width = 800
         const height = 600
