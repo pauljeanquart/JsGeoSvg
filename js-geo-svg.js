@@ -1,10 +1,10 @@
-import { geoJSONToSVGPath, getGeoJSONBounds } from './geojson-to-svg.js'
+import { createSVGPathElement, getGeoJSONBounds } from './geojson-to-svg.js'
 
 // plugin to take GeoJson polygon as data-polygon render svg version
 function initializeJsGeoSvg() {
     const svgElements = document.querySelectorAll('.js-geo-svg');
     svgElements.forEach(svgElement => {
-        const polygon = JSON.parse(svgElement.dataset.jsPolygon);
+        const polygon = JSON.parse(svgElement.dataset.jsGeoJsonFeature);
         // Process each GeoJSON polygon and render it as an SVG path
 
         const [minX, minY, maxX, maxY] = getGeoJSONBounds(polygon)
@@ -23,14 +23,7 @@ function initializeJsGeoSvg() {
             return [x, y]
         }
 
-        const path = geoJSONToSVGPath(polygon, { projection })
-
-        const p = document.createElementNS('http://www.w3.org/2000/svg', 'path')
-        p.setAttribute('d', path)
-        p.setAttribute('fill', '#4da6ff')
-        p.setAttribute('fill-rule', 'evenodd')
-        p.setAttribute('stroke', '#003366')
-        p.setAttribute('stroke-width', '0.5')
+        const p = createSVGPathElement(polygon, { projection })
         svgElement.appendChild(p)
     });
 }

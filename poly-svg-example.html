@@ -10,11 +10,17 @@ s<!doctype html>
   <svg id="map" viewBox="0 0 800 600"></svg>
 
   <script type="module">
-    import {geoJSONToSVGPath, getGeoJSONBounds} from './geojson-to-svg.js'
+    import {createSVGPathElement, getGeoJSONBounds} from './geojson-to-svg.js'
 
     // Oklahoma boundary in GeoJSON lon/lat coordinates
     const geojson = {
-  "coordinates": [
+  "type": "Feature",
+  "properties": {
+    "fill": "#ff0000"
+  },
+  "geometry": {
+    "type": "Polygon",
+    "coordinates": [
    [
     [
      -100.000381,
@@ -2785,15 +2791,8 @@ s<!doctype html>
       return [x, y]
     }
 
-    const path = geoJSONToSVGPath(geojson, { projection })
-
     const svg = document.getElementById('map')
-    const p = document.createElementNS('http://www.w3.org/2000/svg','path')
-    p.setAttribute('d', path)
-    p.setAttribute('fill', '#4da6ff')
-    p.setAttribute('fill-rule', 'evenodd')
-    p.setAttribute('stroke', '#003366')
-    p.setAttribute('stroke-width', '0.5')
+    const p = createSVGPathElement(geojson, { projection })
     svg.appendChild(p)
   </script>
 </body>
