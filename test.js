@@ -40,4 +40,43 @@ const attributes = {}
 const styled = applyGeoJSONStyle({ setAttribute(name, value) { attributes[name] = value } }, multipolygon)
 assert.equal(attributes.fill, '#00aaff')
 
+const geometryCollection = {
+  type: 'Feature',
+  properties: {
+    'marker-color': '#ff6600'
+  },
+  geometry: {
+    type: 'GeometryCollection',
+    geometries: [
+      {
+        type: 'MultiPoint',
+        coordinates: [
+          [0, 0],
+          [1, 1]
+        ]
+      },
+      {
+        type: 'MultiPolygon',
+        coordinates: [
+          [
+            [
+              [2, 2],
+              [3, 2],
+              [3, 3],
+              [2, 2]
+            ]
+          ]
+        ]
+      }
+    ]
+  }
+}
+
+const collectionBounds = getGeoJSONBounds(geometryCollection)
+assert.deepEqual(collectionBounds, [2, 2, 3, 3])
+
+const collectionAttributes = {}
+applyGeoJSONStyle({ setAttribute(name, value) { collectionAttributes[name] = value } }, geometryCollection)
+assert.equal(collectionAttributes.fill, '#ff6600')
+
 console.log('MultiPolygon bounds and fill-color test passed')

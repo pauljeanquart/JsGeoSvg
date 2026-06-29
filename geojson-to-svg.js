@@ -26,10 +26,14 @@ function ringsFromGeoJSON(geojson) {
     return geojson.features.flatMap((feature) => ringsFromGeoJSON(feature))
   }
 
+  if (t === 'GeometryCollection') {
+    return geojson.geometries.flatMap((geometry) => ringsFromGeoJSON(geometry))
+  }
+
   if (t === 'Polygon') return [geojson.coordinates]
   if (t === 'MultiPolygon') return geojson.coordinates
 
-  throw new Error('Only Polygon and MultiPolygon are supported')
+  return []
 }
 
 // Read styling properties from GeoJSON when present.
@@ -53,13 +57,19 @@ function getGeoJSONProperties(geojson) {
 // Resolve the fill color for a path from GeoJSON properties or explicit options.
 function getFillColor(geojson, opts = {}) {
   const props = getGeoJSONProperties(geojson)
-  return opts.fill || props.fill || props.fillColor || props.color || opts.defaultFill || '#4da6ff'
+  return opts.fill || props.fill || props.fillColor || props['marker-color'] || props.color || opts.defaultFill || '#4da6ff'
 }
 
 // Resolve the stroke color for a path from GeoJSON properties or explicit options.
 function getStrokeColor(geojson, opts = {}) {
   const props = getGeoJSONProperties(geojson)
-  return opts.stroke || props.stroke || props.strokeColor || '#003366'
+  return opts.stroke || props.stroke || props.strokeColor || props['marker-color'] || '#003366'
+}
+
+// Resolve the marker color for point features so circles use the intended fill color.
+function getMarkerColor(geojson, opts = {}) {
+  const props = getGeoJSONProperties(geojson)
+  return opts.markerColor || props['marker-color'] || props.fill || props.fillColor || props.color || '#ff0000'
 }
 
 // Apply styling attributes to an SVG path element using GeoJSON properties.
@@ -69,18 +79,36 @@ export function applyGeoJSONStyle(target, geojson, opts = {}) {
   target.setAttribute('fill', getFillColor(geojson, opts))
   target.setAttribute('fill-rule', opts.fillRule || 'evenodd')
   target.setAttribute('stroke', getStrokeColor(geojson, opts))
-  target.setAttribute('stroke-width', opts.strokeWidth || '0.5')
+  target.setAttribute('stroke-width', opts.strokeWidth || '1')
 
   return target
 }
 
-// Create an SVG path element and apply styling derived from GeoJSON properties.
+// Create SVG elements for the GeoJSON geometry and apply styling derived from its properties.
 export function createSVGPathElement(geojson, opts = {}) {
   if (typeof document === 'undefined') return null
 
+  const group = document.createElementNS('http://www.w3.org/2000/svg', 'g')
+
   const path = document.createElementNS('http://www.w3.org/2000/svg', 'path')
   path.setAttribute('d', geoJSONToSVGPath(geojson, opts))
-  return applyGeoJSONStyle(path, geojson, opts)
+  applyGeoJSONStyle(path, geojson, opts)
+  group.appendChild(path)
+
+  const points = getGeoJSONPoints(geojson)
+  points.forEach((coord) => {
+    const circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle')
+    const [x, y] = (opts.projection || defaultProjection)(coord)
+    circle.setAttribute('cx', x)
+    circle.setAttribute('cy', y)
+    circle.setAttribute('r', opts.radius || '9')
+    circle.setAttribute('fill', getMarkerColor(geojson, opts))
+    circle.setAttribute('stroke', getStrokeColor(geojson, opts))
+    circle.setAttribute('stroke-width', opts.strokeWidth || '1')
+    group.appendChild(circle)
+  })
+
+  return group
 }
 
 // Compute the bounding box for a Polygon or MultiPolygon by scanning all rings.
@@ -105,6 +133,20 @@ export function getGeoJSONBounds(geojson) {
   }
 
   return [minX, minY, maxX, maxY]
+}
+
+// Extract point coordinates from Point, MultiPoint, or GeometryCollection inputs.
+export function getGeoJSONPoints(geojson) {
+  const t = geojson && geojson.type
+  if (!geojson || !t) return []
+
+  if (t === 'Feature') return getGeoJSONPoints(geojson.geometry)
+  if (t === 'FeatureCollection') return geojson.features.flatMap((feature) => getGeoJSONPoints(feature))
+  if (t === 'GeometryCollection') return geojson.geometries.flatMap((geometry) => getGeoJSONPoints(geometry))
+  if (t === 'Point') return [geojson.coordinates]
+  if (t === 'MultiPoint') return geojson.coordinates
+
+  return []
 }
 
 // Convert GeoJSON geometry into a single SVG path string.
