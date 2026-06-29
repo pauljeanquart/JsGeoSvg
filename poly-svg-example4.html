@@ -2,19 +2,19 @@
 <html>
 
 <head>
-  <meta charset="utf-8" />
-  <title>Js GeoJSON to SVG</title>
-  <!-- <style>svg{width:26px;height:26px;border:0px solid #ddd}</style> -->
-  <!-- Latest compiled and minified CSS -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
-    integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+    <meta charset="utf-8" />
+    <title>Js GeoJSON to SVG</title>
+    <!-- <style>svg{width:26px;height:26px;border:0px solid #ddd}</style> -->
+    <!-- Latest compiled and minified CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
 </head>
 
 <body>
-  <div class="container">
-    <div class="row">
-      <div class="col-md-1">
-        <svg class="w-50 h-auto js-geo-svg" data-js-geo-json-feature='
+    <div class="container">
+        <div class="row">
+            <div class="col-md-1 text-center">
+                <svg class="w-50 h-auto js-geo-svg" data-js-geo-json-feature='
     {
   "type": "Feature",
       "properties": {
@@ -61,14 +61,14 @@
     ]
 }
 }' id="map" viewBox="0 0 800 600"></svg>
-      </div>
-      <div class="col-md-5">
-        <p>This is a simple paragraph for demonstration purposes.</p>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-md-1">
-        <svg class="w-50 h-auto js-geo-svg" data-js-geo-json-feature='{
+            </div>
+            <div class="col-md-5">
+                <p>This is a simple paragraph for demonstration purposes.</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-1 text-center">
+                <svg class="w-50 h-auto js-geo-svg" data-js-geo-json-feature='{
     "type": "Polygon",
     "coordinates": [
             [
@@ -80,14 +80,14 @@
             ]
     ]
 }' id="map" viewBox="0 0 800 600"></svg>
-      </div>
-      <div class="col-md-5">
-        <p>Simple Polygon.</p>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-md-1">
-        <svg class="w-50 h-auto js-geo-svg" data-js-geo-json-feature='{
+            </div>
+            <div class="col-md-5">
+                <p>Simple Polygon.</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-1 text-center">
+                <svg class="w-50 h-auto js-geo-svg" data-js-geo-json-feature='{
     "type": "Polygon",
     "coordinates": [
           [
@@ -106,14 +106,14 @@
           ]
     ]
 }' id="map" viewBox="0 0 800 600"></svg>
-      </div>
-      <div class="col-md-5">
-        <p>Polygon with hole</p>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-md-1">
-        <svg class="w-50 h-auto js-geo-svg" data-js-geo-json-feature='{
+            </div>
+            <div class="col-md-5">
+                <p>Polygon with hole</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-1 text-center">
+                <svg class="w-50 h-auto js-geo-svg" data-js-geo-json-feature='{
         "type": "Polygon",
         "coordinates": [
             [
@@ -125,20 +125,19 @@
             ]
         ]
       }' id="map" viewBox="0 0 800 600"></svg>
-      </div>
-      <div class="col-md-5">
-        <p>Polygon</p>
-      </div>
-    </div>
-  </div>
-  <div class="row">
-    <div class="col-md-1">
-      <svg class="w-50 h-auto js-geo-svg" data-js-geo-json-feature='        {
+            </div>
+            <div class="col-md-5">
+                <p>Polygon</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-1 text-center">
+                <svg class="w-50 h-auto js-geo-svg" data-js-geo-json-feature='        {
             "type": "Feature",
             "properties": {
                 "name": "Park Facility",
                 "stroke": "rgba(130, 47, 62, 1)",
-                "fill": "#00ff00",
+                "fill": "yellow",
                 "marker-color": "#FF0000"
             },
             "geometry": {
@@ -1079,20 +1078,97 @@
                 ]
             }
         }' id="map" viewBox="0 0 800 600"></svg>
-    </div>
-    <div class="col-md-5">
-      <p>Multipolygon</p>
-    </div>
-  </div>
-    <div class="row">
-    <div class="col-md-1">
-      <svg class="w-50 h-auto js-geo-svg" data-js-geo-json-feature='
+            </div>
+            <div class="col-md-5">
+                <p>Multipolygon</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-1 bg-secondary text-center">
+                <svg class="w-50 h-auto js-geo-svg" data-js-geo-json-feature='        {
+            "type": "Feature",
+            "properties": {
+                "name": "Park Facility",
+                "stroke": "rgba(130, 47, 62, 1)",
+                "fill": "white",
+                "marker-color": "#FF0000"
+            },
+            "geometry": {
+                "type": "MultiPolygon",
+                "coordinates": [
+                    [
+                        [
+                            [
+                                -86.37904340826896,
+                                42.24817537167184
+                            ],
+                            [
+                                -84.93434125983146,
+                                41.758338382081455
+                            ],
+                            [
+                                -85.18174760504236,
+                                35.54793331942125
+                            ],
+                            [
+                                -88.00523393316736,
+                                35.55240259475205
+                            ],
+                            [
+                                -88.06992056750713,
+                                40.286007065754255
+                            ],
+                            [
+                                -88.7773073971594,
+                                41.99044275423933
+                            ],
+                            [
+                                -87.97118557098753,
+                                41.961345947138255
+                            ],
+                            [
+                                -87.88501155975706,
+                                41.82404195049133
+                            ],
+                            [
+                                -87.73841274383909,
+                                41.82755969274497
+                            ],
+                            [
+                                -87.83282650116331,
+                                41.97946920423522
+                            ],
+                            [
+                                -87.63610256317503,
+                                42.01595532379382
+                            ],
+                            [
+                                -87.38616359833128,
+                                41.60139282785514
+                            ],
+                            [
+                                -86.37904340826896,
+                                42.24817537167184
+                            ]
+                        ]
+                    ]
+                ]
+            }
+        }' id="map" viewBox="0 0 800 600"></svg>
+            </div>
+            <div class="col-md-5">
+                <p>C: Illinois - Indiana - Kentucky - Tennessee</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-1 text-center">
+                <svg class="w-50 h-auto js-geo-svg" data-js-geo-json-feature='
     {
       "type": "Feature",
       "properties": {
         "name": "Park Facility",
         "stroke": "rgba(130, 47, 62, 1)",
-        "fill": "#00ff00",
+        "fill": "pink",
         "marker-color": "#FF0000"
       },
       "geometry": {
@@ -1163,24 +1239,24 @@
         ]
       }
     }' id="map" viewBox="0 0 800 600"></svg>
+            </div>
+            <div class="col-md-5">
+                <p>Multipolygon with MultiPoint</p>
+            </div>
+        </div>
     </div>
-    <div class="col-md-5">
-      <p>Multipolygon with MultiPoint</p>
-    </div>
-  </div>
-  </div>
 
-  <!-- Latest compiled and minified JavaScript -->
-  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
-    integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3"
-    crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js"
-    integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V"
-    crossorigin="anonymous"></script>
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
+        integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js"
+        integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V"
+        crossorigin="anonymous"></script>
 
-  <script type="module">
-    import './js-geo-svg.js'
-  </script>
+    <script type="module">
+        import './js-geo-svg.js'
+    </script>
 </body>
 
 </html>
